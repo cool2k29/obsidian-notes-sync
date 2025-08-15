@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-詳細設計/3-1-テーブル定義書.md",
+                "file": "1-要件定義/1-2-要件定義書.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3-1-テーブル定義書"
+              "title": "1-2-要件定義書"
             }
           }
         ]
@@ -110,7 +110,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "3-詳細設計/3-1-テーブル定義書.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 3-1-テーブル定義書"
+              "title": "Backlinks"
             }
           },
           {
@@ -129,12 +128,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "3-詳細設計/3-1-テーブル定義書.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 3-1-テーブル定義書"
+              "title": "Outgoing links"
             }
           },
           {
@@ -184,17 +182,41 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "31369c2c2991c65f",
+  "active": "3f2896ebc7ac2c6f",
   "lastOpenFiles": [
+    "4-画面設計/4-2-IO設計書.md",
+    "4-画面設計/4-1-IO設計書.md",
+    "4-画面設計/Untitled.md",
+    "2-詳細設計/2-2-非機能要件書.md",
+    "2-詳細設計/2-1-機能要件書.md",
+    "2-詳細設計/2-1-非機能要件書.md",
+    "2-詳細設計/2-2-機能要件書.md",
+    "2-詳細設計/2-3-機能要件書.md",
+    "2-詳細設計/1-4-非機能要件書.md",
+    "2-詳細設計/1-3-機能要件書.md",
+    "4-画面設計/4-1-画面項目設計書.md",
+    "4-画面設計/画面項目設計書.md",
+    "4-画面設計",
+    "画面設計/画面項目設計書.md",
+    "画面設計/Untitled.md",
+    "画面設計/old_画面項目設計書.md",
+    "画面設計/画面項目設計書_old.md",
+    "画面設計/画面設計書.md",
+    "画面設計",
+    "Untitled",
+    "3-データベース設計/3-1-テーブル定義書.md",
+    "3-データベース設計/2-1-テーブル定義書.md",
+    "3-データベース設計",
+    "2-詳細設計/2-1-テーブル定義書.md",
+    "2-詳細設計/3-1-テーブル定義書.md",
+    "2-詳細設計",
     "1-要件定義/1-2-要件定義書.md",
     "1-要件定義/1-1-要件サマリー.md",
     "Welcome.md",
     "3-詳細設計/3-1-テーブル定義書.md",
     "1-要件定義/1-3-機能要件書.md",
-    "1-要件定義/1-4-非機能要件書.md",
     "3-詳細設計",
     "1-要件定義",
-    "0-プロジェクト概要/0-1-プロジェクト概要.md",
     "0-プロジェクト概要"
   ]
 }
