@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI-004_更新画面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            background-color: #FAFAFA;
+            padding: 80px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 32px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-field {
+            margin-bottom: 24px;
+        }
+        
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #404040;
+            margin-bottom: 8px;
+        }
+        
+        .required {
+            color: #EF4444;
+        }
+        
+        .input, .select {
+            width: 100%;
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid #D4D4D4;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #171717;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .input:focus, .select:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .input:hover:not(:disabled), .select:hover:not(:disabled) {
+            border-color: #A3A3A3;
+        }
+        
+        .input:disabled, .select:disabled {
+            background-color: #F5F5F5;
+            color: #737373;
+            cursor: not-allowed;
+        }
+        
+        .helper-text {
+            font-size: 12px;
+            color: #737373;
+            margin-top: 4px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-label {
+            font-size: 16px;
+            color: #171717;
+            cursor: pointer;
+        }
+        
+        .listbox {
+            min-height: 120px;
+            max-height: 200px;
+            border: 1px solid #D4D4D4;
+            border-radius: 6px;
+            padding: 8px;
+            overflow-y: auto;
+            background: white;
+        }
+        
+        .listbox:focus-within {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .listbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .listbox-item:hover {
+            background-color: #F5F5F5;
+        }
+        
+        .listbox-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            font-size: 16px;
+            color: #171717;
+            cursor: pointer;
+        }
+        
+        .timestamp-fields {
+            background-color: #F5F5F5;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+        
+        .timestamp-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .timestamp-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timestamp-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #737373;
+            width: 100px;
+        }
+        
+        .timestamp-value {
+            font-size: 14px;
+            color: #171717;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #E5E5E5;
+        }
+        
+        .button {
+            height: 40px;
+            padding: 0 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .button-primary {
+            background-color: #3B82F6;
+            color: white;
+        }
+        
+        .button-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        .button-secondary {
+            background-color: white;
+            color: #404040;
+            border: 1px solid #D4D4D4;
+        }
+        
+        .button-secondary:hover {
+            background-color: #FAFAFA;
+        }
+        
+        .selected-count {
+            font-size: 12px;
+            color: #737373;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">研修生エントリー更新</h1>
+        
+        <div class="form-container">
+            <form>
+                <!-- ID (Read-only) -->
+                <div class="form-field">
+                    <label class="label">ID</label>
+                    <input type="text" class="input" value="1" disabled>
+                </div>
+                
+                <!-- 名前 -->
+                <div class="form-field">
+                    <label class="label">
+                        名前 <span class="required">*</span>
+                    </label>
+                    <input type="text" class="input" value="山田 太郎" maxlength="50">
+                    <div class="helper-text">最大50文字</div>
+                </div>
+                
+                <!-- メールアドレス -->
+                <div class="form-field">
+                    <label class="label">
+                        メールアドレス <span class="required">*</span>
+                    </label>
+                    <input type="email" class="input" value="yamada@example.com">
+                    <div class="helper-text">有効なメールアドレスを入力</div>
+                </div>
+                
+                <!-- カテゴリー -->
+                <div class="form-field">
+                    <label class="label">
+                        カテゴリー <span class="required">*</span>
+                    </label>
+                    <select class="select">
+                        <option value="">選択してください</option>
+                        <option value="level0" selected>Level 0</option>
+                        <option value="level1">Level 1</option>
+                        <option value="level2">Level 2</option>
+                        <option value="level3">Level 3</option>
+                        <option value="level4">Level 4</option>
+                        <option value="level5">Level 5</option>
+                    </select>
+                </div>
+                
+                <!-- ステータス -->
+                <div class="form-field">
+                    <label class="label">
+                        ステータス <span class="required">*</span>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="有効" name="status" class="radio-input" checked>
+                            <label for="active" class="radio-label">有効</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="無効" name="status" class="radio-input">
+                            <label for="inactive" class="radio-label">無効</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- スキル領域 -->
+                <div class="form-field">
+                    <label class="label">
+                        スキル領域 (最大4個まで選択可)
+                    </label>
+                    <div class="listbox">
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-java" class="listbox-checkbox" checked>
+                            <label for="skill-java">Java開発</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-frontend" class="listbox-checkbox" checked>
+                            <label for="skill-frontend">フロントエンド開発</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-database" class="listbox-checkbox" checked>
+                            <label for="skill-database">データベース設計</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-infra" class="listbox-checkbox">
+                            <label for="skill-infra">インフラ構築</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-aiml" class="listbox-checkbox">
+                            <label for="skill-aiml">AI/ML</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-mobile" class="listbox-checkbox">
+                            <label for="skill-mobile">モバイル開発</label>
+                        </div>
+                    </div>
+                    <div class="selected-count">選択中: 3/4</div>
+                </div>
+                
+                <!-- 研修通知 -->
+                <div class="form-field">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="trainingNotification" class="checkbox" checked>
+                        <label for="trainingNotification" class="checkbox-label">
+                            研修関連の通知を受け取る
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Timestamps (Read-only) -->
+                <div class="timestamp-fields">
+                    <div class="timestamp-row">
+                        <span class="timestamp-label">作成日時:</span>
+                        <span class="timestamp-value">2024-01-01 10:00:00</span>
+                    </div>
+                    <div class="timestamp-row">
+                        <span class="timestamp-label">更新日時:</span>
+                        <span class="timestamp-value">2024-01-02 15:30:00</span>
+                    </div>
+                </div>
+                
+                <!-- アクション -->
+                <div class="form-actions">
+                    <button type="submit" class="button button-primary">更新する</button>
+                    <button type="button" class="button button-secondary">キャンセル</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Tag selection counter
+        const checkboxes = document.querySelectorAll('.listbox-checkbox');
+        const counter = document.querySelector('.selected-count');
+        
+        function updateCounter() {
+            const checked = document.querySelectorAll('.listbox-checkbox:checked').length;
+            counter.textContent = `選択中: ${checked}/4`;
+            
+            if (checked >= 4) {
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) cb.disabled = true;
+                });
+            } else {
+                checkboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+            }
+        }
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateCounter);
+        });
+        
+        // Initialize counter on load
+        updateCounter();
+    </script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI-005_削除確認ダイアログ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            background-color: #FAFAFA;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Background content (simulated) */
+        .background-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 80px;
+            filter: blur(2px);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        .bg-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .bg-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 32px;
+        }
+        
+        .bg-content {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            min-height: 400px;
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(23, 23, 23, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        /* Dialog */
+        .dialog {
+            width: 560px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 
+                0px 20px 25px rgba(0, 0, 0, 0.1),
+                0px 10px 10px rgba(0, 0, 0, 0.04);
+            padding: 32px;
+            position: relative;
+            animation: slideIn 0.2s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dialog-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FEF3C7;
+            border-radius: 50%;
+        }
+        
+        .warning-icon {
+            font-size: 24px;
+        }
+        
+        .dialog-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #171717;
+            margin-bottom: 16px;
+        }
+        
+        .dialog-message {
+            font-size: 14px;
+            color: #525252;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .entry-info {
+            background-color: #F5F5F5;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .entry-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .entry-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .entry-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #737373;
+            width: 80px;
+        }
+        
+        .entry-value {
+            font-size: 14px;
+            color: #171717;
+            flex: 1;
+        }
+        
+        .warning-message {
+            font-size: 14px;
+            color: #EF4444;
+            font-weight: 500;
+            padding: 12px;
+            background-color: #FEE2E2;
+            border-radius: 6px;
+            border-left: 4px solid #EF4444;
+            margin-bottom: 24px;
+        }
+        
+        .dialog-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+        }
+        
+        .button {
+            height: 40px;
+            padding: 0 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .button-danger {
+            background-color: #EF4444;
+            color: white;
+        }
+        
+        .button-danger:hover {
+            background-color: #DC2626;
+        }
+        
+        .button-secondary {
+            background-color: white;
+            color: #404040;
+            border: 1px solid #D4D4D4;
+        }
+        
+        .button-secondary:hover {
+            background-color: #FAFAFA;
+        }
+        
+        /* Alternative centered layout (without background) */
+        .simple-view {
+            display: none;
+        }
+        
+        .simple-view .dialog {
+            box-shadow: 
+                0px 20px 25px rgba(0, 0, 0, 0.15),
+                0px 10px 10px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <!-- Simulated background content -->
+    <div class="background-content">
+        <div class="bg-container">
+            <h1 class="bg-title">エントリー詳細</h1>
+            <div class="bg-content">
+                <!-- Simulated detail page content -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Dialog -->
+    <div class="overlay">
+        <div class="dialog">
+            <!-- Warning Icon -->
+            <div class="dialog-icon">
+                <span class="warning-icon">⚠️</span>
+            </div>
+            
+            <!-- Title -->
+            <h2 class="dialog-title">研修生エントリーを削除</h2>
+            
+            <!-- Message -->
+            <div class="dialog-message">
+                以下の研修生エントリーを削除してもよろしいですか？
+            </div>
+            
+            <!-- Entry Information -->
+            <div class="entry-info">
+                <div class="entry-row">
+                    <span class="entry-label">ID:</span>
+                    <span class="entry-value">1</span>
+                </div>
+                <div class="entry-row">
+                    <span class="entry-label">名前:</span>
+                    <span class="entry-value">山田 太郎</span>
+                </div>
+                <div class="entry-row">
+                    <span class="entry-label">メール:</span>
+                    <span class="entry-value">yamada@example.com</span>
+                </div>
+            </div>
+            
+            <!-- Warning -->
+            <div class="warning-message">
+                ⚠️ この操作は取り消せません。
+            </div>
+            
+            <!-- Actions -->
+            <div class="dialog-actions">
+                <button class="button button-danger" onclick="confirmDelete()">削除する</button>
+                <button class="button button-secondary" onclick="cancelDelete()">キャンセル</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function confirmDelete() {
+            alert('削除処理を実行します（デモ）');
+            // In real implementation, this would:
+            // 1. Call DELETE API
+            // 2. Show loading state
+            // 3. Navigate back to list on success
+        }
+        
+        function cancelDelete() {
+            alert('削除をキャンセルしました（デモ）');
+            // In real implementation, this would close the dialog
+            // and return to the detail page
+        }
+        
+        // Prevent closing on overlay click for demo
+        document.querySelector('.overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cancelDelete();
+            }
+        });
+    </script>
+</body>
+</html>
