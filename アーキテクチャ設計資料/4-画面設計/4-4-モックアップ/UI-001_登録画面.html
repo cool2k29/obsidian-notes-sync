@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研修生エントリー登録</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            background-color: #212529;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .form-container {
+            background-color: #343a40;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control, .form-select {
+            width: 100%;
+            height: 40px;
+            padding: 0 12px;
+            background-color: #495057;
+            border: 1px solid #6c757d;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            background-color: #495057;
+            border-color: #80bdff;
+            color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        }
+        
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+        
+        textarea.form-control {
+            height: auto;
+            min-height: 100px;
+            padding: 12px;
+        }
+        
+        .form-check {
+            margin-bottom: 10px;
+        }
+        
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            background-color: #495057;
+            border: 1px solid #6c757d;
+            cursor: pointer;
+        }
+        
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .form-check-label {
+            color: #ffffff;
+            cursor: pointer;
+        }
+        
+        .form-check-inline {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .text-danger {
+            color: #dc3545;
+        }
+        
+        .text-muted {
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        .text-warning {
+            color: #ffc107;
+        }
+        
+        .btn {
+            height: 48px;
+            padding: 0 32px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-block;
+            line-height: 48px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: #0d6efd;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+        }
+        
+        .btn-sm {
+            height: 32px;
+            line-height: 32px;
+            padding: 0 16px;
+            font-size: 14px;
+        }
+        
+        .btn-outline-primary {
+            background-color: transparent;
+            color: #0d6efd;
+            border: 1px solid #0d6efd;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+        
+        .alert {
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .alert-success {
+            background-color: #198754;
+            color: white;
+            border: 1px solid #146c43;
+        }
+        
+        .alert-danger {
+            background-color: #dc3545;
+            color: white;
+            border: 1px solid #b02a37;
+        }
+        
+        .d-none {
+            display: none !important;
+        }
+        
+        .d-flex {
+            display: flex;
+        }
+        
+        .gap-2 {
+            gap: 8px;
+        }
+        
+        .skill-entry {
+            background-color: #495057;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .card {
+            background-color: #343a40;
+            border: 1px solid #495057;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: #495057;
+            border-bottom: 1px solid #6c757d;
+            padding: 16px 20px;
+        }
+        
+        .card-header h5 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.25rem;
+        }
+        
+        .card-body {
+            background-color: #343a40;
+            padding: 20px;
+        }
+        
+        .tag-selection {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #495057;
+            border-radius: 6px;
+            padding: 15px;
+            background-color: #495057;
+        }
+        
+        .skills-counter {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -8px;
+        }
+        
+        .col-md-4, .col-md-3, .col-md-2 {
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+        
+        .col-md-4 {
+            flex: 0 0 33.333%;
+        }
+        
+        .col-md-3 {
+            flex: 0 0 25%;
+        }
+        
+        .col-md-2 {
+            flex: 0 0 16.667%;
+        }
+        
+        @media (max-width: 768px) {
+            .col-md-4, .col-md-3, .col-md-2 {
+                flex: 0 0 100%;
+            }
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .btn-close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            float: right;
+            opacity: 0.8;
+        }
+        
+        .btn-close:hover {
+            opacity: 1;
+        }
+        
+        .alert-dismissible {
+            position: relative;
+            padding-right: 48px;
+        }
+        
+        .alert-dismissible .btn-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">研修生エントリー登録</h1>
+        
+        <!-- Success/Error Messages -->
+        <div id="messages">
+            <!-- Success message example (hidden by default) -->
+            <div class="alert alert-success alert-dismissible d-none" role="alert">
+                登録が完了しました。
+                <button type="button" class="btn-close" onclick="this.parentElement.classList.add('d-none')">×</button>
+            </div>
+            
+            <!-- Error message example (hidden by default) -->
+            <div class="alert alert-danger alert-dismissible d-none" role="alert">
+                エラーが発生しました。
+                <button type="button" class="btn-close" onclick="this.parentElement.classList.add('d-none')">×</button>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form>
+                <!-- User Name -->
+                <div class="form-group">
+                    <label for="userName" class="form-label">
+                        ユーザー名 <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="userName" name="userName" 
+                           placeholder="山田 太郎" required maxlength="100">
+                    <div class="text-danger d-none">
+                        <small>ユーザー名は必須です。</small>
+                    </div>
+                </div>
+                
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        メールアドレス <span class="text-danger">*</span>
+                    </label>
+                    <input type="email" class="form-control" id="email" name="email" 
+                           placeholder="example@email.com" required maxlength="255">
+                    <div class="text-danger d-none">
+                        <small>有効なメールアドレスを入力してください。</small>
+                    </div>
+                </div>
+                
+                <!-- Category (Dropdown) -->
+                <div class="form-group">
+                    <label for="category" class="form-label">
+                        カテゴリー <span class="text-danger">*</span>
+                    </label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="">選択してください</option>
+                        <option value="Level 0">Level 0</option>
+                        <option value="Level 1">Level 1</option>
+                        <option value="Level 2">Level 2</option>
+                        <option value="Level 3">Level 3</option>
+                        <option value="Level 4">Level 4</option>
+                        <option value="Level 5">Level 5</option>
+                    </select>
+                    <div class="text-danger d-none">
+                        <small>カテゴリーを選択してください。</small>
+                    </div>
+                </div>
+                
+                <!-- Status (Radio Buttons) -->
+                <div class="form-group">
+                    <label class="form-label">
+                        ステータス <span class="text-danger">*</span>
+                    </label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" 
+                                   value="有効" id="status_active" required>
+                            <label class="form-check-label" for="status_active">有効</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" 
+                                   value="無効" id="status_inactive" required>
+                            <label class="form-check-label" for="status_inactive">無効</label>
+                        </div>
+                    </div>
+                    <div class="text-danger d-none">
+                        <small>ステータスを選択してください。</small>
+                    </div>
+                </div>
+                
+                <!-- Tags (Multi-select, max 4) -->
+                <div class="form-group">
+                    <label class="form-label">
+                        スキル領域（最大4個まで選択可）
+                    </label>
+                    <div class="tag-selection">
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="フロントエンド開発" id="tag_frontend">
+                            <label class="form-check-label" for="tag_frontend">
+                                フロントエンド開発
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="データベース設計" id="tag_database">
+                            <label class="form-check-label" for="tag_database">
+                                データベース設計
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="インフラ構築" id="tag_infra">
+                            <label class="form-check-label" for="tag_infra">
+                                インフラ構築
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="AI/ML" id="tag_aiml">
+                            <label class="form-check-label" for="tag_aiml">
+                                AI/ML
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="モバイル開発" id="tag_mobile">
+                            <label class="form-check-label" for="tag_mobile">
+                                モバイル開発
+                            </label>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        選択中: <span id="tagCount">0</span>/4
+                        <span id="tagWarning" class="text-warning d-none">（上限に達しました）</span>
+                    </small>
+                </div>
+                
+                <!-- Newsletter Agreement (Checkbox) -->
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="newsletterAgreement" 
+                               name="newsletterAgreement">
+                        <label class="form-check-label" for="newsletterAgreement">
+                            研修関連の通知を受け取る
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Skills Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5>スキル情報</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="skills-container">
+                            <!-- Initial skill entry -->
+                            <div class="skill-entry">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" 
+                                               name="skills[0].skillName"
+                                               placeholder="スキル名" required maxlength="100">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" name="skills[0].skillLevel" required>
+                                            <option value="">レベル</option>
+                                            <option value="0">未経験</option>
+                                            <option value="1">1年未満</option>
+                                            <option value="2">1-2年</option>
+                                            <option value="3">2-3年</option>
+                                            <option value="4">3-5年</option>
+                                            <option value="5">5年以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" class="form-control" 
+                                               name="skills[0].experienceYears"
+                                               placeholder="経験年数" min="0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                                onclick="removeSkill(this)">削除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" 
+                                onclick="addSkill()" id="addSkillBtn">
+                            ➕ スキル追加
+                        </button>
+                        <small class="skills-counter d-none" id="skillsWarning">
+                            （スキルは最大10件まで）
+                        </small>
+                    </div>
+                </div>
+                
+                <!-- Form Buttons -->
+                <div class="d-flex gap-2" style="margin-top: 24px;">
+                    <button type="submit" class="btn btn-primary">登録する</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='UI-002_一覧画面.html'">
+                        キャンセル
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // タグ選択カウンターと制限
+        const tagCheckboxes = document.querySelectorAll('.tag-checkbox');
+        const tagCount = document.getElementById('tagCount');
+        const tagWarning = document.getElementById('tagWarning');
+        
+        tagCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checkedCount = document.querySelectorAll('.tag-checkbox:checked').length;
+                tagCount.textContent = checkedCount;
+                
+                if (checkedCount >= 4) {
+                    tagWarning.classList.remove('d-none');
+                    // 未選択のチェックボックスを無効化
+                    tagCheckboxes.forEach(cb => {
+                        if (!cb.checked) {
+                            cb.disabled = true;
+                        }
+                    });
+                } else {
+                    tagWarning.classList.add('d-none');
+                    // すべてのチェックボックスを有効化
+                    tagCheckboxes.forEach(cb => {
+                        cb.disabled = false;
+                    });
+                }
+            });
+        });
+        
+        // スキル管理
+        let skillCount = 1;
+        
+        function addSkill() {
+            if (skillCount >= 10) {
+                document.getElementById('skillsWarning').classList.remove('d-none');
+                return;
+            }
+            
+            const container = document.getElementById('skills-container');
+            const skillEntry = document.createElement('div');
+            skillEntry.className = 'skill-entry';
+            skillEntry.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" 
+                               name="skills[${skillCount}].skillName"
+                               placeholder="スキル名" required maxlength="100">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" name="skills[${skillCount}].skillLevel" required>
+                            <option value="">レベル</option>
+                            <option value="0">未経験</option>
+                            <option value="1">1年未満</option>
+                            <option value="2">1-2年</option>
+                            <option value="3">2-3年</option>
+                            <option value="4">3-5年</option>
+                            <option value="5">5年以上</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" 
+                               name="skills[${skillCount}].experienceYears"
+                               placeholder="経験年数" min="0">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-sm btn-danger" 
+                                onclick="removeSkill(this)">削除</button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(skillEntry);
+            skillCount++;
+            
+            if (skillCount >= 10) {
+                document.getElementById('addSkillBtn').disabled = true;
+                document.getElementById('skillsWarning').classList.remove('d-none');
+            }
+        }
+        
+        function removeSkill(button) {
+            button.closest('.skill-entry').remove();
+            skillCount--;
+            
+            if (skillCount < 10) {
+                document.getElementById('addSkillBtn').disabled = false;
+                document.getElementById('skillsWarning').classList.add('d-none');
+            }
+            
+            // スキル名の再インデックス
+            const skillEntries = document.querySelectorAll('.skill-entry');
+            skillEntries.forEach((entry, index) => {
+                const inputs = entry.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    const name = input.getAttribute('name');
+                    if (name) {
+                        input.setAttribute('name', name.replace(/\[\d+\]/, `[${index}]`));
+                    }
+                });
+            });
+        }
+        
+        // フォームバリデーションシミュレーション
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // 成功メッセージを表示
+            const successMsg = document.querySelector('.alert-success');
+            successMsg.classList.remove('d-none');
+            
+            // 3秒後に非表示
+            setTimeout(() => {
+                successMsg.classList.add('d-none');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
