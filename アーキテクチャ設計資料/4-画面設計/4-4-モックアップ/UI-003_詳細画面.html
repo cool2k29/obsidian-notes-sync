@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UI-003_詳細画面</title>
+    <title>UI-003_研修生エントリー詳細</title>
     <style>
         * {
             margin: 0;
@@ -13,34 +13,67 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
-            background-color: #FAFAFA;
-            padding: 80px;
+            background-color: #2b2f33;
+            color: #ffffff;
+            padding: 40px 20px;
             min-height: 100vh;
+            font-size: 20px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                max-width: 100%;
+            }
         }
         
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 12px;
         }
         
         .page-title {
-            font-size: 30px;
-            font-weight: 700;
-            color: #171717;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 30px;
         }
         
         .button {
-            height: 40px;
-            padding: 0 24px;
+            height: 48px;
+            padding: 0 32px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 20px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
@@ -48,66 +81,82 @@
         }
         
         .button-primary {
-            background-color: #3B82F6;
+            background-color: #0d6efd;
             color: white;
         }
         
         .button-primary:hover {
-            background-color: #2563EB;
+            background-color: #0b5ed7;
         }
         
         .button-secondary {
-            background-color: white;
-            color: #404040;
-            border: 1px solid #D4D4D4;
+            background-color: #6c757d;
+            color: #ffffff;
+            border: 1px solid #6c757d;
         }
         
         .button-secondary:hover {
-            background-color: #FAFAFA;
+            background-color: #5a6268;
+        }
+        
+        .button-back {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+        
+        .button-back:hover {
+            background-color: #5a6268;
         }
         
         .button-danger {
-            background-color: #EF4444;
+            background-color: #dc3545;
             color: white;
         }
         
         .button-danger:hover {
-            background-color: #DC2626;
+            background-color: #bb2d3b;
         }
         
-        .detail-container {
-            background: white;
-            padding: 32px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .id-section {
-            padding: 16px;
-            background-color: #F5F5F5;
-            border-radius: 6px;
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
             margin-bottom: 24px;
         }
         
-        .id-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #737373;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        @media (max-width: 768px) {
+            .two-column-layout {
+                grid-template-columns: 1fr;
+            }
         }
         
-        .id-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #171717;
-            margin-top: 4px;
+        .card {
+            background: #3c4145;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            background: #495057;
+            padding: 16px 20px;
+            border-bottom: 1px solid #343a40;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .card-body {
+            padding: 20px;
         }
         
         .detail-section {
             margin-bottom: 32px;
             padding-bottom: 32px;
-            border-bottom: 1px solid #E5E5E5;
+            border-bottom: 1px solid #495057;
         }
         
         .detail-section:last-of-type {
@@ -117,9 +166,8 @@
         }
         
         .section-title {
-            font-size: 18px;
             font-weight: 600;
-            color: #171717;
+            color: #ffffff;
             margin-bottom: 16px;
         }
         
@@ -130,15 +178,13 @@
         
         .detail-label {
             width: 150px;
-            font-size: 14px;
             font-weight: 500;
-            color: #737373;
+            color: #e9ecef;
         }
         
         .detail-value {
             flex: 1;
-            font-size: 14px;
-            color: #171717;
+            color: #ffffff;
         }
         
         .tag-list {
@@ -150,10 +196,9 @@
         .tag {
             display: inline-block;
             padding: 4px 12px;
-            background-color: #E0E7FF;
-            color: #3730A3;
+            background-color: #495057;
+            color: #6ea8fe;
             border-radius: 16px;
-            font-size: 12px;
             font-weight: 500;
         }
         
@@ -161,37 +206,35 @@
             display: inline-block;
             padding: 4px 8px;
             border-radius: 4px;
-            font-size: 12px;
             font-weight: 500;
         }
         
         .status-active {
-            background-color: #D1FAE5;
-            color: #065F46;
+            background-color: #198754;
+            color: #ffffff;
         }
         
         .status-inactive {
-            background-color: #FEE2E2;
-            color: #991B1B;
+            background-color: #dc3545;
+            color: #ffffff;
         }
         
         .newsletter-agreed {
-            color: #10B981;
+            color: #198754;
             font-weight: 500;
         }
         
         .newsletter-not-agreed {
-            color: #737373;
+            color: #adb5bd;
         }
         
         .note-content {
             padding: 16px;
-            background-color: #FEF3C7;
+            background-color: #495057;
             border-radius: 6px;
-            border-left: 4px solid #F59E0B;
-            font-size: 14px;
+            border-left: 4px solid #ffc107;
             line-height: 1.6;
-            color: #78350F;
+            color: #ffffff;
         }
         
         .actions {
@@ -199,11 +242,11 @@
             gap: 16px;
             margin-top: 32px;
             padding-top: 32px;
-            border-top: 1px solid #E5E5E5;
+            border-top: 1px solid #495057;
         }
         
         .empty-note {
-            color: #A3A3A3;
+            color: #adb5bd;
             font-style: italic;
         }
     </style>
@@ -213,84 +256,77 @@
         <!-- Header -->
         <div class="header">
             <h1 class="page-title">研修生エントリー詳細</h1>
-            <button class="button button-secondary" onclick="history.back()">戻る</button>
+            <div class="header-buttons">
+                <button class="button button-back" onclick="history.back()">← 一覧に戻る</button>
+                <button class="button button-primary">✏️ 編集</button>
+                <button class="button button-danger">🗑️ 削除</button>
+            </div>
         </div>
         
-        <!-- Detail Container -->
-        <div class="detail-container">
-            <!-- ID Section -->
-            <div class="id-section">
-                <div class="id-label">ID</div>
-                <div class="id-value">1</div>
-            </div>
-            
-            <!-- Basic Information -->
-            <div class="detail-section">
-                <h2 class="section-title">基本情報</h2>
-                <div class="detail-row">
-                    <div class="detail-label">名前:</div>
-                    <div class="detail-value">山田 太郎</div>
+        <!-- Two Column Layout -->
+        <div class="two-column-layout">
+            <!-- Left Column: Basic Information -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>基本情報</h2>
                 </div>
-                <div class="detail-row">
-                    <div class="detail-label">メール:</div>
-                    <div class="detail-value">yamada@example.com</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">カテゴリー:</div>
-                    <div class="detail-value">Level 0</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">ステータス:</div>
-                    <div class="detail-value">
-                        <span class="status-badge status-active">有効</span>
+                <div class="card-body">
+                    <div class="detail-row">
+                        <div class="detail-label">ユーザー名:</div>
+                        <div class="detail-value">test</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">メールアドレス:</div>
+                        <div class="detail-value">test28@test.com</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">カテゴリー:</div>
+                        <div class="detail-value">Level 0</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">ステータス:</div>
+                        <div class="detail-value">
+                            <span class="status-badge status-active">有効</span>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">メールマガジン:</div>
+                        <div class="detail-value">
+                            <span class="newsletter-not-agreed">未同意</span>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">登録日時:</div>
+                        <div class="detail-value">2025年08月28日 19:12</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">更新日時:</div>
+                        <div class="detail-value">2025年08月28日 19:12</div>
                     </div>
                 </div>
             </div>
             
-            <!-- スキル領域 -->
-            <div class="detail-section">
-                <h2 class="section-title">スキル領域</h2>
-                <div class="tag-list">
-                    <span class="tag">Java開発</span>
-                    <span class="tag">フロントエンド開発</span>
-                    <span class="tag">データベース設計</span>
+            <!-- Right Column: Tag Information -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>タグ情報</h2>
+                </div>
+                <div class="card-body">
+                    <div class="empty-note">タグが設定されていません</div>
                 </div>
             </div>
-            
-            <!-- Other Information -->
-            <div class="detail-section">
-                <h2 class="section-title">その他</h2>
-                <div class="detail-row">
-                    <div class="detail-label">研修通知:</div>
-                    <div class="detail-value">
-                        <span class="newsletter-agreed">受信中</span>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">作成日時:</div>
-                    <div class="detail-value">2024-01-01 10:00:00</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">更新日時:</div>
-                    <div class="detail-value">2024-01-02 15:30:00</div>
-                </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="card">
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>スキル情報</h2>
+                <button class="button button-primary" style="height: 32px; padding: 0 16px;">スキル追加</button>
             </div>
-            
-            <!-- Latest Note (Optional) -->
-            <div class="detail-section">
-                <h2 class="section-title">最新ノート</h2>
-                <div class="note-content">
-                    本プログラムの 目的 は、研修生が Java を中核スキルとして確実に習得し、要件に基づく設計・実装・テストを一貫して遂行できる人材へ育成することにあります。
-                </div>
-                <!-- If no note exists, show this instead:
-                <div class="empty-note">ノートはまだ登録されていません</div>
-                -->
-            </div>
-            
-            <!-- Actions -->
-            <div class="actions">
-                <button class="button button-primary">編集</button>
-                <button class="button button-danger">削除</button>
+            <div class="card-body" style="text-align: center; padding: 60px 20px;">
+                <div style="font-size: 48px; margin-bottom: 16px;">📝</div>
+                <div class="empty-note">まだスキル情報が登録されていません</div>
+                <button class="button button-primary" style="margin-top: 20px;">最初のスキルを追加</button>
             </div>
         </div>
     </div>

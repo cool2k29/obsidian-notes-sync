@@ -13,7 +13,8 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
-            background-color: #FAFAFA;
+            background-color: #212529;
+            color: #ffffff;
             padding: 80px;
             min-height: 100vh;
         }
@@ -31,16 +32,16 @@
         }
         
         .page-title {
-            font-size: 30px;
+            font-size: 2rem;
             font-weight: 700;
-            color: #171717;
+            color: #ffffff;
         }
         
         .button {
             height: 40px;
             padding: 0 24px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
@@ -48,19 +49,19 @@
         }
         
         .button-primary {
-            background-color: #3B82F6;
+            background-color: #0d6efd;
             color: white;
         }
         
         .button-primary:hover {
-            background-color: #2563EB;
+            background-color: #0b5ed7;
         }
         
         .search-bar {
-            background: white;
+            background: #343a40;
             padding: 16px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             margin-bottom: 24px;
             display: flex;
             gap: 16px;
@@ -71,31 +72,45 @@
             flex: 1;
             height: 40px;
             padding: 0 12px;
-            border: 1px solid #D4D4D4;
+            border: 1px solid #6c757d;
             border-radius: 6px;
             font-size: 16px;
+            background-color: #495057;
+            color: #ffffff;
+        }
+        
+        .search-input::placeholder {
+            color: #adb5bd;
         }
         
         .search-input:focus {
             outline: none;
-            border-color: #3B82F6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #80bdff;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+            background-color: #495057;
         }
         
         .filter-select {
             height: 40px;
             padding: 0 12px;
-            border: 1px solid #D4D4D4;
+            border: 1px solid #6c757d;
             border-radius: 6px;
-            font-size: 14px;
-            background: white;
+            font-size: 1rem;
+            background: #495057;
+            color: #ffffff;
             min-width: 120px;
         }
         
+        .filter-select:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+            outline: none;
+        }
+        
         .table-container {
-            background: white;
+            background: #343a40;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         
@@ -105,25 +120,26 @@
         }
         
         th {
-            background-color: #F5F5F5;
+            background-color: #495057;
             text-align: left;
             padding: 12px 16px;
-            font-size: 12px;
+            font-size: 0.875rem;
             font-weight: 600;
-            color: #525252;
+            color: #e9ecef;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border-bottom: 1px solid #6c757d;
         }
         
         td {
             padding: 16px;
-            border-top: 1px solid #E5E5E5;
-            font-size: 14px;
-            color: #171717;
+            border-top: 1px solid #495057;
+            font-size: 1rem;
+            color: #ffffff;
         }
         
         tr:hover {
-            background-color: #FAFAFA;
+            background-color: #495057;
         }
         
         .id-cell {
@@ -132,31 +148,32 @@
         }
         
         .name-link {
-            color: #3B82F6;
+            color: #6ea8fe;
             text-decoration: none;
             font-weight: 500;
         }
         
         .name-link:hover {
             text-decoration: underline;
+            color: #8bb4fe;
         }
         
         .status-badge {
             display: inline-block;
             padding: 4px 8px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 0.875rem;
             font-weight: 500;
         }
         
         .status-active {
-            background-color: #D1FAE5;
-            color: #065F46;
+            background-color: #198754;
+            color: #ffffff;
         }
         
         .status-inactive {
-            background-color: #FEE2E2;
-            color: #991B1B;
+            background-color: #dc3545;
+            color: #ffffff;
         }
         
         .actions {
@@ -165,13 +182,14 @@
         }
         
         .action-link {
-            color: #3B82F6;
+            color: #6ea8fe;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 1rem;
         }
         
         .action-link:hover {
             text-decoration: underline;
+            color: #8bb4fe;
         }
         
         .pagination {
@@ -179,9 +197,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px;
-            background: white;
+            background: #343a40;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             margin-top: 24px;
         }
         
@@ -195,16 +213,17 @@
             height: 32px;
             min-width: 32px;
             padding: 0 12px;
-            border: 1px solid #D4D4D4;
-            background: white;
+            border: 1px solid #6c757d;
+            background: #495057;
+            color: #ffffff;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
         }
         
         .page-button:hover:not(:disabled) {
-            background-color: #F5F5F5;
+            background-color: #6c757d;
         }
         
         .page-button:disabled {
@@ -213,25 +232,27 @@
         }
         
         .page-button.active {
-            background-color: #3B82F6;
+            background-color: #0d6efd;
             color: white;
-            border-color: #3B82F6;
+            border-color: #0d6efd;
         }
         
         .items-per-page {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
-            color: #525252;
+            font-size: 1rem;
+            color: #e9ecef;
         }
         
         .items-select {
             height: 32px;
             padding: 0 8px;
-            border: 1px solid #D4D4D4;
+            border: 1px solid #6c757d;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 1rem;
+            background: #495057;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -417,7 +438,7 @@
                 <button class="page-button active">1</button>
                 <button class="page-button">2</button>
                 <button class="page-button">3</button>
-                <span style="padding: 0 8px; color: #737373;">...</span>
+                <span style="padding: 0 8px; color: #adb5bd;">...</span>
                 <button class="page-button">10</button>
                 <button class="page-button">次へ &gt;</button>
             </div>
