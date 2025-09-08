@@ -295,6 +295,44 @@
             margin: 0;
         }
         
+        /* プロフィール画像プレビュー用スタイル */
+        .image-preview {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #6c757d;
+            border-radius: 4px;
+            padding: 5px;
+            background-color: #495057;
+        }
+        
+        input[type="file"] {
+            background-color: #495057;
+            color: #ffffff;
+            border: 1px solid #6c757d;
+            border-radius: 4px;
+            padding: 8px 12px;
+            width: 100%;
+        }
+        
+        input[type="file"]::file-selector-button {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        input[type="file"]::file-selector-button:hover {
+            background-color: #0b5ed7;
+        }
+        
         .btn-close {
             background: transparent;
             border: none;
@@ -366,6 +404,21 @@
                     </div>
                 </div>
                 
+                <!-- Profile Picture Upload -->
+                <div class="form-group">
+                    <label for="profilePicture" class="form-label">
+                        プロフィール写真
+                    </label>
+                    <input type="file" class="form-control" id="profilePicture" name="profilePicture" 
+                           accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
+                    <div class="text-muted" style="margin-top: 4px; font-size: 0.85rem;">
+                        対応形式: JPEG, PNG, GIF, WEBP（最大5MB）
+                    </div>
+                    <div id="imagePreview" class="image-preview">
+                        <img id="previewImg" src="" alt="プレビュー">
+                    </div>
+                </div>
+                
                 <!-- Category (Dropdown) -->
                 <div class="form-group">
                     <label for="category" class="form-label">
@@ -418,6 +471,13 @@
                                    name="selectedTags" value="フロントエンド開発" id="tag_frontend">
                             <label class="form-check-label" for="tag_frontend">
                                 フロントエンド開発
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input tag-checkbox" type="checkbox" 
+                                   name="selectedTags" value="バックエンド開発" id="tag_backend">
+                            <label class="form-check-label" for="tag_backend">
+                                バックエンド開発
                             </label>
                         </div>
                         <div class="form-check">
@@ -505,7 +565,7 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-sm btn-outline-primary" 
-                                onclick="addSkill()" id="addSkillBtn">
+                                onclick="addSkill(event)" id="addSkillBtn">
                             ➕ スキル追加
                         </button>
                         <small class="skills-counter d-none" id="skillsWarning">
@@ -526,6 +586,27 @@
     </div>
     
     <script>
+        // プロフィール画像プレビュー
+        const profilePictureInput = document.getElementById('profilePicture');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        
+        if (profilePictureInput) {
+            profilePictureInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            });
+        }
+        
         // タグ選択カウンターと制限
         const tagCheckboxes = document.querySelectorAll('.tag-checkbox');
         const tagCount = document.getElementById('tagCount');
@@ -557,7 +638,12 @@
         // スキル管理
         let skillCount = 1;
         
-        function addSkill() {
+        function addSkill(event) {
+            // Prevent form submission if this function is called from a button click
+            if (event) {
+                event.preventDefault();
+            }
+            
             if (skillCount >= 10) {
                 document.getElementById('skillsWarning').classList.remove('d-none');
                 return;

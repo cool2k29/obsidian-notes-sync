@@ -235,6 +235,87 @@
             color: #adb5bd;
             margin-top: 4px;
         }
+        
+        .profile-picture-section {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: #495057;
+            border-radius: 6px;
+        }
+        
+        .current-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #6c757d;
+            margin-bottom: 12px;
+        }
+        
+        .profile-placeholder-edit {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            background-color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            border: 2px solid #adb5bd;
+            margin: 0 auto 12px auto;
+        }
+        
+        .file-input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #ffffff;
+            background: #495057;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .file-input:hover {
+            border-color: #adb5bd;
+        }
+        
+        .file-input:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        }
+        
+        .remove-picture-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        
+        .remove-picture-btn:hover {
+            background-color: #bb2d3b;
+        }
+        
+        .image-preview {
+            margin-top: 12px;
+        }
+        
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            border: 2px solid #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -247,6 +328,31 @@
                 <div class="form-field">
                     <label class="label">ID</label>
                     <input type="text" class="input" value="1" disabled>
+                </div>
+                
+                <!-- Profile Picture -->
+                <div class="form-field">
+                    <label class="label">プロフィール写真</label>
+                    <div class="profile-picture-section">
+                        <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;">
+                            <div style="flex-shrink: 0;">
+                                <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/山田 太郎.png" alt="山田 太郎" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid #6c757d;">
+                                <div style="color: #adb5bd; font-size: 14px; margin-top: 4px; text-align: center;">現在の写真</div>
+                            </div>
+                            <div style="flex-shrink: 0;">
+                                <input type="file" class="file-input" id="profilePicture" name="profilePicture" 
+                                       accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
+                                <div class="helper-text" style="margin-top: 8px;">対応形式: JPEG, PNG, GIF, WEBP（最大5MB）</div>
+                                <div class="checkbox-container" style="margin-top: 12px;">
+                                    <input type="checkbox" class="checkbox-input" id="removeProfilePicture" name="removeProfilePicture" value="true">
+                                    <label class="checkbox-label" for="removeProfilePicture">画像を削除する</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="image-preview" style="display: none;">
+                            <img id="previewImg" src="" alt="新しい写真のプレビュー">
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- 名前 -->
@@ -307,12 +413,12 @@
                     </label>
                     <div class="listbox">
                         <div class="listbox-item">
-                            <input type="checkbox" id="skill-java" class="listbox-checkbox" checked>
-                            <label for="skill-java">Java開発</label>
-                        </div>
-                        <div class="listbox-item">
                             <input type="checkbox" id="skill-frontend" class="listbox-checkbox" checked>
                             <label for="skill-frontend">フロントエンド開発</label>
+                        </div>
+                        <div class="listbox-item">
+                            <input type="checkbox" id="skill-backend" class="listbox-checkbox" checked>
+                            <label for="skill-backend">バックエンド開発</label>
                         </div>
                         <div class="listbox-item">
                             <input type="checkbox" id="skill-database" class="listbox-checkbox" checked>
@@ -391,6 +497,35 @@
         
         // Initialize counter on load
         updateCounter();
+        
+        // Profile picture preview functionality
+        const profileInput = document.getElementById('profilePicture');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removePictureBtn = document.querySelector('.remove-picture-btn');
+        const currentPicture = document.querySelector('.profile-placeholder-edit');
+        
+        profileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+        
+        removePictureBtn.addEventListener('click', function() {
+            if (confirm('現在の写真を削除してもよろしいですか？')) {
+                currentPicture.textContent = '削';
+                removePictureBtn.style.display = 'none';
+                alert('写真が削除されました');
+            }
+        });
     </script>
 </body>
 </html>

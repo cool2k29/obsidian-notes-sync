@@ -147,6 +147,35 @@
             font-weight: 500;
         }
         
+        /* プロフィール画像スタイル */
+        .photo-cell {
+            width: 60px;
+            text-align: center;
+            padding: 8px !important;
+        }
+        
+        .profile-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #6c757d;
+        }
+        
+        .profile-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+        
         .name-link {
             color: #6ea8fe;
             text-decoration: none;
@@ -286,6 +315,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th class="photo-cell">写真</th>
                         <th class="id-cell">ID</th>
                         <th>名前</th>
                         <th>メール</th>
@@ -298,6 +328,9 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/山田 太郎.png" alt="山田 太郎" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">1</td>
                         <td><a href="#" class="name-link">山田 太郎</a></td>
                         <td>yamada@example.com</td>
@@ -311,9 +344,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/佐藤 健.png" alt="佐藤 健" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">2</td>
-                        <td><a href="#" class="name-link">佐藤 花子</a></td>
-                        <td>sato@example.com</td>
+                        <td><a href="#" class="name-link">佐藤 健</a></td>
+                        <td>sato.takeshi@example.com</td>
                         <td>Level 3</td>
                         <td><span class="status-badge status-active">有効</span></td>
                         <td>2024-01-03 09:15:00</td>
@@ -324,9 +360,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/鈴木結衣.png" alt="鈴木結衣" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">3</td>
-                        <td><a href="#" class="name-link">鈴木 一郎</a></td>
-                        <td>suzuki@example.com</td>
+                        <td><a href="#" class="name-link">鈴木 結衣</a></td>
+                        <td>suzuki.yui@example.com</td>
                         <td>Internal</td>
                         <td><span class="status-badge status-inactive">無効</span></td>
                         <td>2024-01-04 14:20:00</td>
@@ -337,9 +376,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/田中愛.png" alt="田中 愛" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">4</td>
-                        <td><a href="#" class="name-link">田中 美咲</a></td>
-                        <td>tanaka@example.com</td>
+                        <td><a href="#" class="name-link">田中 愛</a></td>
+                        <td>tanaka.ai@example.com</td>
                         <td>Level 0</td>
                         <td><span class="status-badge status-active">有効</span></td>
                         <td>2024-01-06 08:30:00</td>
@@ -350,9 +392,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/高橋 大輔.png" alt="高橋 大輔" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">5</td>
-                        <td><a href="#" class="name-link">高橋 健太</a></td>
-                        <td>takahashi@example.com</td>
+                        <td><a href="#" class="name-link">高橋 大輔</a></td>
+                        <td>takahashi.daisuke@example.com</td>
                         <td>Level 3</td>
                         <td><span class="status-badge status-active">有効</span></td>
                         <td>2024-01-07 16:00:00</td>
@@ -363,8 +408,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/渡辺 真一.png" alt="渡辺 真一" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">6</td>
-                        <td><a href="#" class="name-link">渡辺 真理</a></td>
+                        <td><a href="#" class="name-link">渡辺 真一</a></td>
                         <td>watanabe@example.com</td>
                         <td>Internal</td>
                         <td><span class="status-badge status-active">有効</span></td>
@@ -376,8 +424,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/伊藤 剛.png" alt="伊藤 剛" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">7</td>
-                        <td><a href="#" class="name-link">伊藤 大輔</a></td>
+                        <td><a href="#" class="name-link">伊藤 剛</a></td>
                         <td>ito@example.com</td>
                         <td>Level 0</td>
                         <td><span class="status-badge status-inactive">無効</span></td>
@@ -389,8 +440,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/中村 悠.png" alt="中村 悠" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">8</td>
-                        <td><a href="#" class="name-link">中村 由美</a></td>
+                        <td><a href="#" class="name-link">中村 悠</a></td>
                         <td>nakamura@example.com</td>
                         <td>Level 3</td>
                         <td><span class="status-badge status-active">有効</span></td>
@@ -402,8 +456,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/小林 優.png" alt="小林 優" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">9</td>
-                        <td><a href="#" class="name-link">小林 修</a></td>
+                        <td><a href="#" class="name-link">小林 優</a></td>
                         <td>kobayashi@example.com</td>
                         <td>Internal</td>
                         <td><span class="status-badge status-active">有効</span></td>
@@ -415,8 +472,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="photo-cell">
+                            <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/加藤 翼.png" alt="加藤 翼" class="profile-thumbnail">
+                        </td>
                         <td class="id-cell">10</td>
-                        <td><a href="#" class="name-link">加藤 愛子</a></td>
+                        <td><a href="#" class="name-link">加藤 翼</a></td>
                         <td>kato@example.com</td>
                         <td>Level 0</td>
                         <td><span class="status-badge status-active">有効</span></td>

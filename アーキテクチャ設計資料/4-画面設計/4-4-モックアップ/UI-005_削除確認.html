@@ -198,6 +198,51 @@
             background-color: #495057;
         }
         
+        .user-preview {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .preview-picture {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #6c757d;
+        }
+        
+        .preview-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            border: 2px solid #adb5bd;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        
+        .user-email {
+            font-size: 0.9rem;
+            color: #adb5bd;
+        }
+        
         /* Alternative centered layout (without background) */
         .simple-view {
             display: none;
@@ -239,17 +284,26 @@
             
             <!-- Entry Information -->
             <div class="entry-info">
+                <!-- User Preview with Photo -->
+                <div class="user-preview">
+                    <img src="https://radiant-trainee-training-profile.s3.ap-northeast-1.amazonaws.com/profiles/山田 太郎.png" alt="山田 太郎" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;">
+                    <div class="user-info">
+                        <div class="user-name">山田 太郎</div>
+                        <div class="user-email">yamada@example.com</div>
+                    </div>
+                </div>
+                
                 <div class="entry-row">
                     <span class="entry-label">ID:</span>
                     <span class="entry-value">1</span>
                 </div>
                 <div class="entry-row">
-                    <span class="entry-label">名前:</span>
-                    <span class="entry-value">山田 太郎</span>
+                    <span class="entry-label">カテゴリー:</span>
+                    <span class="entry-value">Level 0</span>
                 </div>
                 <div class="entry-row">
-                    <span class="entry-label">メール:</span>
-                    <span class="entry-value">yamada@example.com</span>
+                    <span class="entry-label">ステータス:</span>
+                    <span class="entry-value">有効</span>
                 </div>
             </div>
             
